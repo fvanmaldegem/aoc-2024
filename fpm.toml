@@ -1,0 +1,23 @@
+name = "advent-of-code-2024"
+author = "Floris van Maldegem"
+description = "Advent of Code 2024"
+homepage = "https://github.com/fvanmaldegem/aoc-2024"
+keywords = ["AOC"]
+executable = [
+    { name = "solution_01", source-dir = "src", main = "solution_01.f90" },
+]
+
+[dependencies]
+stdlib = "*"
+M_strings = { git = "https://github.com/urbanjost/M_strings.git", tag="v1.0.1"}
+
+[build]
+auto-executables = true
+auto-examples = false
+auto-tests = false
+
+[library]
+source-dir = "src/lib"
+
+[install]
+library = false
