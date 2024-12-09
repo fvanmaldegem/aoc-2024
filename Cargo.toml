@@ -1,0 +1,15 @@
+[package]
+name = "aoc-2024"
+version = "0.1.0"
+edition = "2021"
+autolib = false
+autobins = false
+autoexamples = false
+autotests = false
+autobenches = false
+
+[dependencies]
+
+[[bin]]
+name = "solution_02"
+path = "src/solution_02.rs"
