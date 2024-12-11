@@ -1,6 +1,6 @@
 use std::fs;
 
-use regex::Regex;
+use regex::{Match, Regex};
 
 const DEBUG: bool = false;
 const REGEX01: &str = r"mul\(([0-9]{1,3})\,([0-9]{1,3})\)";
@@ -30,8 +30,9 @@ fn solve_02(content: String) {
     let mut total = 0;
     let mut active = true;
     for (activate, disable, l, r) in re.captures_iter(&content).map(|captures| {
-        let l: Option<i32> = captures.name("l").map_or_else(|| None, |s| Some(s.as_str().parse().unwrap()));
-        let r: Option<i32> = captures.name("r").map_or_else(|| None, |s| Some(s.as_str().parse().unwrap()));
+        let unwrap_parse_i32 = | m: Match<'_> | Some(m.as_str().parse::<i32>().unwrap());
+        let l: Option<i32> = captures.name("l").map_or_else(|| None, unwrap_parse_i32);
+        let r: Option<i32> = captures.name("r").map_or_else(|| None, unwrap_parse_i32);
         return (
             captures.name("do").is_some(),
             captures.name("dont").is_some(),
@@ -39,15 +40,16 @@ fn solve_02(content: String) {
             r
         );
     }) {
-
         if activate {
             if DEBUG {println!("activating");}
             active = true;
+            continue;
         }
 
         if disable {
             if DEBUG {println!("disabling");}
             active = false;
+            continue;
         }
 
         if active && l.is_some() && r.is_some() {
@@ -56,6 +58,7 @@ fn solve_02(content: String) {
                 println!("adding {} * {} to total", l.unwrap(), r.unwrap());
             }
             total += l.unwrap() * r.unwrap();
+            continue;
         }
     }
 
