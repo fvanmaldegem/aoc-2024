@@ -9,7 +9,12 @@ autotests = false
 autobenches = false
 
 [dependencies]
+regex = "1.11.1"
 
 [[bin]]
 name = "solution_02"
 path = "src/solution_02.rs"
+
+[[bin]]
+name = "solution_03"
+path = "src/solution_03.rs"

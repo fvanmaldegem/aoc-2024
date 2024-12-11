@@ -4,4 +4,4 @@
 
 # How to run Rust
 - Install Rust (ya dingus)
-- `cargo run solution_<nr>` 
+- `cargo run --bin solution_<nr>` 
