@@ -30,8 +30,8 @@ fn solve_02(content: String) {
     let mut total = 0;
     let mut active = true;
     for (activate, disable, l, r) in re.captures_iter(&content).map(|captures| {
-        let l = captures.name("l").map_or_else(|| 0, |s| s.as_str().parse().unwrap());
-        let r = captures.name("r").map_or_else(|| 0, |s| s.as_str().parse().unwrap());
+        let l: Option<i32> = captures.name("l").map_or_else(|| None, |s| Some(s.as_str().parse().unwrap()));
+        let r: Option<i32> = captures.name("r").map_or_else(|| None, |s| Some(s.as_str().parse().unwrap()));
         return (
             captures.name("do").is_some(),
             captures.name("dont").is_some(),
@@ -39,6 +39,7 @@ fn solve_02(content: String) {
             r
         );
     }) {
+
         if activate {
             if DEBUG {println!("activating");}
             active = true;
@@ -49,9 +50,12 @@ fn solve_02(content: String) {
             active = false;
         }
 
-        if active && !(activate || disable) {
-            if DEBUG {println!("adding {l} * {r} to total");}
-            total += l * r;
+        if active && l.is_some() && r.is_some() {
+            if DEBUG {
+                
+                println!("adding {} * {} to total", l.unwrap(), r.unwrap());
+            }
+            total += l.unwrap() * r.unwrap();
         }
     }
 
